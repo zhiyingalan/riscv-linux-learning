@@ -2,6 +2,7 @@
 
 extern void load_store_test(void);
 extern void pc_related_test(void);
+extern void my_memcpy(void);
 
 void asm_test(void)
 {
