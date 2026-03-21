@@ -33,6 +33,7 @@ pc_related_test:
 
 .global my_memcpy
 my_memcpy:
+
 	li t0, 0x80200000
 	li t1, 0x123456789ABCDEF0
 	sd t1, 0(t0)
@@ -43,18 +44,23 @@ my_memcpy:
 	li t1, 0x8888666644442222
 	sd t1, 24(t0)
 
-	li t1, 0x80210000
-	li t2, 0
-	li t3, 4 # loop number
+	li a0, 0x80200000
+	li a1, 0x80210000
+	li a2, 4 # loop number
 
-loop_copy:
-	ld t4, 0(t0)
-	sd t4, 0(t1)
 
-	addi t0, t0, 8
-	addi t1, t1, 8
-	addi t3, t3, -1
+copy_loop:
 
-	bnez t3, loop_copy
+	beqz a2, copy_loop_end
+	ld t0, 0(a0)
+	sd t0, 0(a1)
 
+	addi a0, a0, 8
+	addi a1, a1, 8
+	addi a2, a2, -1
+
+	j copy_loop
+
+copy_loop_end:
 	ret
+	
