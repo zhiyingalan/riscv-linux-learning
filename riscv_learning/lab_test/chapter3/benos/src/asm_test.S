@@ -66,12 +66,10 @@ copy_loop_end:
 
 .global compare_test
 compare_test:
-	# if a0 < a1, jump L1 function
-	bltu a0, a1, .L1
-	# else set a5 to 0
-	li a5, 0
-	# compare done, jump L2 function
-	j .L2
+	
+	bltu a0, a1, .L1 # if a0 < a1, jump L1
+	li a5, 0 # else set a5 to 0
+	j .L2 # compare done, jump L2
 
 .L1:
 	li a5, -1
