@@ -78,3 +78,27 @@ compare_test:
 	# a0 store return value
 	mv a0, a5
 	ret
+
+.global compare_test2
+compare_test2:
+	bltu a0, a1, .L3 # if a0 < a1, jump L3 function
+	addi a5, a1, 2   # else set return value as a1 + 2
+	j .L4
+.L3:
+	addi a5, a1, -1
+.L4:
+	mv a0, a5
+	ret
+
+.global call_compare_test2
+call_compare_test2:
+	addi sp, sp, -8
+	sd ra, 0(sp)
+
+	call compare_test2
+	nop
+
+	ld ra, 0(sp)
+	addi sp, sp, 8
+
+	ret
