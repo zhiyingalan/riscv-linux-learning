@@ -63,4 +63,20 @@ copy_loop:
 
 copy_loop_end:
 	ret
-	
+
+.global compare_test
+compare_test:
+	# if a0 < a1, jump L1 function
+	bltu a0, a1, .L1
+	# else set a5 to 0
+	li a5, 0
+	# compare done, jump L2 function
+	j .L2
+
+.L1:
+	li a5, -1
+
+.L2:
+	# a0 store return value
+	mv a0, a5
+	ret
